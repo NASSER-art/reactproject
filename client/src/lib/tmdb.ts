@@ -8,11 +8,18 @@ import {
   MediaItem,
 } from "@/types";
 
+const TMDB_API_URL = 'https://api.themoviedb.org/3';
+const TMDB_API_KEY = import.meta.env.VITE_TMDB_API_KEY;
+
+if (!TMDB_API_KEY) {
+  throw new Error('TMDB API key is missing. Please set VITE_TMDB_API_KEY in your environment variables.');
+}
+
 // These functions make requests to our backend which proxies to TMDB API
 // We always go through our backend to protect the API key
 
 export async function getTrendingMovies(): Promise<Movie[]> {
-  const response = await fetch('/api/trending/movie/week');
+  const response = await fetch(`${TMDB_API_URL}/trending/movie/week?api_key=${TMDB_API_KEY}`);
   if (!response.ok) {
     throw new Error('Failed to fetch trending movies');
   }
@@ -21,7 +28,7 @@ export async function getTrendingMovies(): Promise<Movie[]> {
 }
 
 export async function getTrendingTVShows(): Promise<TVShow[]> {
-  const response = await fetch('/api/trending/tv/week');
+  const response = await fetch(`${TMDB_API_URL}/trending/tv/week?api_key=${TMDB_API_KEY}`);
   if (!response.ok) {
     throw new Error('Failed to fetch trending TV shows');
   }

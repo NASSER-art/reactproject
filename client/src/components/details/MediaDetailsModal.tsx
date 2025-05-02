@@ -16,6 +16,7 @@ import {
 import { RatingCircle } from '@/components/ui/RatingCircle';
 import { CastSection } from './CastSection';
 import { StreamingSection } from './StreamingSection';
+import { Movie, TVShow } from '@/types';
 
 export function MediaDetailsModal() {
   const { state, closeDetailsModal } = useUI();
@@ -159,7 +160,7 @@ export function MediaDetailsModal() {
                   ) : (
                     <div className="w-full aspect-[2/3] bg-dark-300 flex items-center justify-center">
                       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-16 h-16 text-dark-200">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M3.375 19.5h17.25m-17.25 0a1.125 1.125 0 01-1.125-1.125M3.375 19.5h1.5C5.496 19.5 6 18.996 6 18.375m-3.75 0V5.625m0 12.75v-1.5c0-.621.504-1.125 1.125-1.125m18.375 2.625V5.625m0 12.75c0 .621-.504 1.125-1.125 1.125m1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125m0 0H5.625m0 0c-.621 0-1.125.504-1.125 1.125v-1.5c0-.621.504-1.125 1.125-1.125h13.5c.621 0 1.125.504 1.125 1.125v1.5c0 .621-.504 1.125-1.125 1.125M6.75 7.5h3v3h-3v-3zm6 0h3v3h-3v-3z" />
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M3.375 19.5h17.25m-17.25 0a1.125 1.125 0 01-1.125-1.125M3.375 19.5h1.5C5.496 19.5 6 18.996 6 18.375m-3.75 0V5.625m0 12.75v-1.5c0-.621.504-1.125 1.125-1.125m18.375 2.625V5.625m0 12.75c0 .621-.504 1.125-1.125 1.125m1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125m0 0H5.625m0 0c-.621 0-1.125.504-1.125 1.125v-1.5c0-.621.504-1.125 1.125-1.125h13.5c.621 0 1.125.504 1.125 1.125V18.75c0 .621-.504 1.125-1.125 1.125M6.75 7.5h3v3h-3v-3zm6 0h3v3h-3v-3z" />
                       </svg>
                     </div>
                   )}
@@ -208,7 +209,11 @@ export function MediaDetailsModal() {
                     <h2 className="font-montserrat font-bold text-2xl md:text-3xl mb-3">{getMediaTitle(details)}</h2>
                     <div className="flex flex-wrap justify-center md:justify-start gap-2 mb-4">
                       <span className="text-xs bg-dark-300 px-3 py-1 rounded-full text-light-300">
-                        {formatDate(state.mediaType === 'movie' ? details.release_date : details.first_air_date)}
+                        {formatDate(
+                            state.mediaType === 'movie' 
+                                ? (details as Movie).release_date 
+                                : (details as TVShow).first_air_date
+                        )}
                       </span>
                       {runtime && (
                         <span className="text-xs bg-dark-300 px-3 py-1 rounded-full text-light-300">

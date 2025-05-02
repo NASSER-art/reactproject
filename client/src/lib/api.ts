@@ -1,5 +1,8 @@
 import { SearchFilters } from '@/types';
 
+// Injecting the API key directly for functionality
+const TMDB_API_KEY = "e104c6f7f443470e8455999423a33d89";
+
 // Helper functions to make API requests to our backend
 // These are wrappers around fetch() with error handling and JSON parsing
 

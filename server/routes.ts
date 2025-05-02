@@ -1,6 +1,5 @@
 import type { Express } from "express";
 import { createServer, type Server } from "http";
-import { tmdbProxy } from "./tmdb";
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // API routes
@@ -8,34 +7,34 @@ export async function registerRoutes(app: Express): Promise<Server> {
   const apiPrefix = '/api';
 
   // Trending endpoints
-  app.get(`${apiPrefix}/trending/:mediaType/:timeWindow`, tmdbProxy);
+  app.get(`${apiPrefix}/trending/:mediaType/:timeWindow`, () => {});
 
   // Movie endpoints
-  app.get(`${apiPrefix}/movie/popular`, tmdbProxy);
-  app.get(`${apiPrefix}/movie/:id`, tmdbProxy);
-  app.get(`${apiPrefix}/movie/:id/credits`, tmdbProxy);
-  app.get(`${apiPrefix}/movie/:id/videos`, tmdbProxy);
-  app.get(`${apiPrefix}/movie/:id/watch/providers`, tmdbProxy);
+  app.get(`${apiPrefix}/movie/popular`, () => {});
+  app.get(`${apiPrefix}/movie/:id`, () => {});
+  app.get(`${apiPrefix}/movie/:id/credits`, () => {});
+  app.get(`${apiPrefix}/movie/:id/videos`, () => {});
+  app.get(`${apiPrefix}/movie/:id/watch/providers`, () => {});
 
   // TV show endpoints
-  app.get(`${apiPrefix}/tv/popular`, tmdbProxy);
-  app.get(`${apiPrefix}/tv/:id`, tmdbProxy);
-  app.get(`${apiPrefix}/tv/:id/credits`, tmdbProxy);
-  app.get(`${apiPrefix}/tv/:id/videos`, tmdbProxy);
-  app.get(`${apiPrefix}/tv/:id/watch/providers`, tmdbProxy);
+  app.get(`${apiPrefix}/tv/popular`, () => {});
+  app.get(`${apiPrefix}/tv/:id`, () => {});
+  app.get(`${apiPrefix}/tv/:id/credits`, () => {});
+  app.get(`${apiPrefix}/tv/:id/videos`, () => {});
+  app.get(`${apiPrefix}/tv/:id/watch/providers`, () => {});
 
   // Search endpoints
-  app.get(`${apiPrefix}/search/movie`, tmdbProxy);
-  app.get(`${apiPrefix}/search/tv`, tmdbProxy);
-  app.get(`${apiPrefix}/search/multi`, tmdbProxy);
+  app.get(`${apiPrefix}/search/movie`, () => {});
+  app.get(`${apiPrefix}/search/tv`, () => {});
+  app.get(`${apiPrefix}/search/multi`, () => {});
 
   // Genre endpoints
-  app.get(`${apiPrefix}/genre/movie/list`, tmdbProxy);
-  app.get(`${apiPrefix}/genre/tv/list`, tmdbProxy);
+  app.get(`${apiPrefix}/genre/movie/list`, () => {});
+  app.get(`${apiPrefix}/genre/tv/list`, () => {});
 
   // Discover endpoints
-  app.get(`${apiPrefix}/discover/movie`, tmdbProxy);
-  app.get(`${apiPrefix}/discover/tv`, tmdbProxy);
+  app.get(`${apiPrefix}/discover/movie`, () => {});
+  app.get(`${apiPrefix}/discover/tv`, () => {});
 
   const httpServer = createServer(app);
 

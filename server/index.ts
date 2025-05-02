@@ -2,15 +2,40 @@ import express, { type Request, Response, NextFunction } from "express";
 import { registerRoutes } from "./routes";
 import { setupVite, serveStatic, log } from "./vite";
 import cors from "cors";
+import dotenv from 'dotenv';
+
+// Charger les variables d'environnement
+dotenv.config();
+
+// Debugging: Log the environment file loading status
+if (!process.env.VITE_TMDB_API_KEY) {
+  console.error("❌ VITE_TMDB_API_KEY is not set in environment variables. Ensure the .env file is properly configured and loaded.");
+  process.exit(1);
+} else {
+  console.log("✅ VITE_TMDB_API_KEY is loaded successfully.");
+}
+
+// Remplacement de la clé API par VITE_TMDB_API_KEY
+const TMDB_API_KEY = process.env.VITE_TMDB_API_KEY;
+const PORT = process.env.PORT || 5005;
+
+// Vérification de la clé API
+if (!TMDB_API_KEY) {
+  console.error("❌ VITE_TMDB_API_KEY is not set in environment variables");
+  process.exit(1);
+}
 
 const app = express();
+
 app.use(cors({
-  origin: "*", // Allow all origins in development
+  origin: "*", // Autoriser tous les domaines en développement
   credentials: true
 }));
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+// Middleware pour logs API + temps de réponse
 app.use((req, res, next) => {
   const start = Date.now();
   const path = req.path;
@@ -52,24 +77,19 @@ app.use((req, res, next) => {
     throw err;
   });
 
-  // importantly only setup vite in development and after
-  // setting up all the other routes so the catch-all route
-  // doesn't interfere with the other routes
+  // Setup Vite uniquement en mode développement
   if (app.get("env") === "development") {
     await setupVite(app, server);
   } else {
     serveStatic(app);
   }
 
-  // ALWAYS serve the app on port 5000
-  // this serves both the API and the client.
-  // It is the only port that is not firewalled.
-  const port = 5000;
+  // Lancement du serveur
   server.listen({
-    port,
+    port: PORT as number,
     host: "0.0.0.0",
     reusePort: true,
   }, () => {
-    log(`serving on port ${port}`);
+    log(`🚀 Serving on port ${PORT}`);
   });
 })();
