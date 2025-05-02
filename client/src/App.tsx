@@ -16,6 +16,8 @@ import TVShows from "@/pages/TVShows";
 import Favorites from "@/pages/Favorites";
 import SearchResults from "@/pages/SearchResults";
 import MediaDetails from "@/pages/MediaDetails";
+import Terms from "@/pages/Terms";
+import Privacy from "@/pages/Privacy";
 import NotFound from "@/pages/not-found";
 
 function Router() {
@@ -29,6 +31,8 @@ function Router() {
       <Route path="/search" component={SearchResults} />
       <Route path="/movie/:id" component={MediaDetails} />
       <Route path="/tv/:id" component={MediaDetails} />
+      <Route path="/terms" component={Terms} />
+      <Route path="/privacy" component={Privacy} />
       <Route component={NotFound} />
     </Switch>
   );
