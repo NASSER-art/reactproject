@@ -66,9 +66,14 @@ export function Footer() {
         </div>
         
         <div className="border-t border-dark-300 pt-6 flex flex-col md:flex-row justify-between items-center">
-          <p className="text-light-400 text-sm font-inter mb-4 md:mb-0">
-            © {new Date().getFullYear()} CineStream. Tous droits réservés.
-          </p>
+          <div className="mb-4 md:mb-0">
+            <p className="text-light-400 text-sm font-inter">
+              © {new Date().getFullYear()} CineStream. Tous droits réservés.
+            </p>
+            <p className="text-light-400 text-sm font-inter mt-1">
+              Développé par <span className="text-primary font-medium">Nasser Letaif</span>
+            </p>
+          </div>
           <div className="flex space-x-4">
             <a href="#" className="text-light-300 hover:text-primary transition-colors">
               <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" className="w-5 h-5">
