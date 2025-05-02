@@ -10,12 +10,15 @@ import {
 import { Movie, TVShow, CreditsResponse, ProviderResponse } from '@/types';
 
 export function useMediaDetails(id: number, type: 'movie' | 'tv') {
+  // Only run the queries if we have a valid ID
+  const shouldFetch = id > 0;
+  
   const { data: details, isLoading: isLoadingDetails, error: detailsError } = useQuery({
     queryKey: [`/api/${type}/${id}`],
     queryFn: () => type === 'movie' 
       ? getMovieDetails(id) 
       : getTVShowDetails(id),
-    enabled: !!id,
+    enabled: shouldFetch,
   });
 
   const { data: credits, isLoading: isLoadingCredits, error: creditsError } = useQuery<CreditsResponse>({
@@ -23,7 +26,7 @@ export function useMediaDetails(id: number, type: 'movie' | 'tv') {
     queryFn: () => type === 'movie' 
       ? getMovieCredits(id) 
       : getTVShowCredits(id),
-    enabled: !!id,
+    enabled: shouldFetch,
   });
 
   const { data: providers, isLoading: isLoadingProviders, error: providersError } = useQuery<ProviderResponse>({
@@ -31,7 +34,7 @@ export function useMediaDetails(id: number, type: 'movie' | 'tv') {
     queryFn: () => type === 'movie' 
       ? getMovieProviders(id) 
       : getTVShowProviders(id),
-    enabled: !!id,
+    enabled: shouldFetch,
   });
 
   const isLoading = isLoadingDetails || isLoadingCredits || isLoadingProviders;

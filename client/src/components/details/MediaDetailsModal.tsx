@@ -24,15 +24,18 @@ export function MediaDetailsModal() {
   const { isFavorite, addFavorite, removeFavorite } = useFavoritesContext();
   const { countryCode } = useCountryCode();
   
+  // Initialize with default empty values
+  const mediaId = state.currentMedia?.id || 0;
+  const mediaType = state.mediaType || 'movie';
+  
+  // Always call the hook, but only enable if we have valid data
   const { 
     details,
     credits,
     providers, 
     isLoading,
     error
-  } = state.mediaType && state.currentMedia ? 
-      useMediaDetails(state.currentMedia.id, state.mediaType) : 
-      { details: undefined, credits: undefined, providers: undefined, isLoading: false, error: undefined };
+  } = useMediaDetails(mediaId, mediaType as 'movie' | 'tv');
 
   const isInFavorites = state.currentMedia ? isFavorite(state.currentMedia.id) : false;
   
