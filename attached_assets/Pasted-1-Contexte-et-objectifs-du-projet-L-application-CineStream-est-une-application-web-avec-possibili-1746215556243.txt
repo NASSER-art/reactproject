@@ -1,0 +1,113 @@
+1. Contexte et objectifs du projet
+
+L'application CineStream est une application web (avec possibilité de déploiement mobile à terme) qui permet à ses utilisateurs de rechercher des films ou séries, d'en consulter les informations détaillées, et de savoir sur quelles plateformes de streaming légales ils peuvent les visionner.
+
+Cette application repose sur l'utilisation de l'API publique de TMDb (The Movie Database) pour la récupération des métadonnées (titres, affiches, résumés, notes, etc.) et des informations de disponibilité en streaming.
+
+2. Objectifs fonctionnels
+
+Permettre à l'utilisateur de :
+
+Chercher un film ou une série.
+
+Voir les détails (titre, synopsis, casting, notes, etc.).
+
+Identifier les plateformes de streaming disponibles selon son pays.
+
+Ajouter des titres en favoris (optionnel).
+
+Consulter les tendances actuelles.
+
+3. Fonctionnalités détaillées
+
+3.1 Accueil
+
+Affichage dynamique des films tendances ("Trending") et populaires via /movie/popular et /trending/movie/week.
+
+Liste sous forme de grille avec l'affiche, le titre et la note.
+
+3.2 Moteur de recherche
+
+Champ de recherche avec auto-complétion optionnelle.
+
+Résultats basés sur search/movie ou search/tv.
+
+Possibilité de filtrer par année ou genre.
+
+3.3 Fiche d’un film ou d’une série
+
+Détails obtenus via /movie/{movie_id} ou /tv/{tv_id}.
+
+Informations affichées :
+
+Titre original
+
+Synopsis
+
+Date de sortie / saison
+
+Affiche + bande-annonce (via videos)
+
+Liste des acteurs principaux (via /credits)
+
+Note moyenne (vote_average)
+
+3.4 Disponibilité en streaming
+
+Affichage des plateformes disponibles via /movie/{movie_id}/watch/providers.
+
+Affichage adapté à la localisation de l’utilisateur (par exemple, FR, US, etc.).
+
+Logo de la plateforme, lien externe si fourni.
+
+3.5 Gestion des favoris (facultatif)
+
+Ajout / retrait d'un titre dans une liste de favoris locale (via LocalStorage).
+
+Accès à une page "Mes favoris".
+
+4. Technologies proposées
+
+Front-End
+
+HTML5 / CSS3 / JavaScript
+
+Framework : React.js 
+
+Responsive Design (mobile, tablette, desktop)
+
+
+
+API Tiers
+
+API principale : TMDb
+
+Authentification par clé API
+
+Stockage local
+
+LocalStorage ou IndexedDB (pour les favoris)
+
+5. Parcours utilisateur (User Flow)
+
+Lancement de l’application
+
+L’utilisateur voit les tendances actuelles (page d'accueil)
+
+Il saisit un titre dans la barre de recherche
+
+Il consulte la fiche d’un film
+
+Il voit les détails + plateformes de visionnage
+
+Il ajoute le film à ses favoris (facultatif)
+
+6. Contraintes techniques
+
+Respect des limites de requêtes de l’API TMDb (40 requêtes toutes les 10 secondes par IP).
+
+Respect des droits d’utilisation de l’API : crédit obligatoire à TMDb.
+
+Pas de diffusion de contenu illégal ou piraté.
+
+Gestion des erreurs d’API (film non trouvé, limite atteinte, etc.).
